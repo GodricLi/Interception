@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>音乐播放器2</title>
+    <style type="text/css">
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        ul{
+            list-style-type: none;
+        }
+        ul li{
+            margin: 10px;
+        }
+        .active{
+            background-color: #606266;
+        }
+    </style>
+</head>
+<body>
+<div id="music">
+    <audio :src="changeMusic" controls autoplay></audio>
+    <ul>
+        <li v-for="(item,index) in musics" @click="clickHandler(index)"
+            :class="{active:currentIndex === index}"> <!--// 添加active样式-->
+
+            <h2>{{item.id}} - {{item.name}}</h2>
+            <p>{{item.author}}</p>
+        </li>
+    </ul>
+</div>
+<script type="text/javascript" src="../vuestudy/node_modules/vue/dist/vue.js"></script>
+<script type="text/javascript">
+    // 计算属性监听音乐播放器
+    let musics= [
+        {
+            id: 1,
+            name: "Please Don't Go - Joel Adams",
+            author:"Joel Adams",
+            songSrc:"./static/Please Don't Go - Joel Adams.mp3"
+        },
+        {
+            id:2,
+            name:"You and Me - Eliza Doolittle",
+            author:"Eliza Doolittle",
+            songSrc:"./static/You and Me - Eliza Doolittle.mp3"
+        },
+    ];
+
+    new Vue({
+        el:"#music",
+        data(){
+            return {
+                musics:musics,
+                currentIndex:0
+            }
+        },
+        methods:{
+            clickHandler(index){
+                this.currentIndex = index
+
+            }
+        },
+        computed: {
+            // 监听musics currentIndex属性
+            changeMusic(){
+                return this.musics[this.currentIndex].songSrc
+            }
+        },
+    });
+</script>
+</body>
+</html>

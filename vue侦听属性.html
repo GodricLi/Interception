@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>侦听属性</title>
+</head>
+<body>
+<div id="app">
+    <input v-model="name" type="text" name="">
+    <p>{{name}}</p>
+    <button @click="changeText">change</button>
+
+    <!--函数存在返回值，直接使用函数名插值-->
+    <p>{{changeDesc}}</p>
+
+
+</div>
+<script type="text/javascript" src="../vuestudy/node_modules/vue/dist/vue.js"></script>
+<script type="text/javascript">
+
+   // 侦听属性watch
+   new Vue({
+        el: "#app",
+        data(){
+            return{
+                name: "god",
+                myName:"godric",
+                age:18,
+            }
+        },
+        methods:{
+            changeText(){
+                this.name = "ric";
+                this.myName = "god";
+                this.age = 22;
+            }
+        },
+        watch:{
+            // 检测单元属性:变量名对应function方法,只能侦听单个属性  命令式
+            name:function(value){
+                console.log(value);
+                if(value === "godric"){
+                    console.log(value + " " + "is a good man")
+
+                }
+            }
+        },
+        // 计算属性检查属性，
+        computed:{
+            changeDesc(){
+                var s =`${this.myName} is ${this.age}`;
+                // 默认只有getter，必须有返回值
+                return s
+            }
+        }
+
+    })
+</script>
+</body>
+</html>
